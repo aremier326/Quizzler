@@ -1,0 +1,46 @@
+﻿@using Quizzler.Dal.Interfaces.Entities.Identity
+@inject SignInManager<User> SignInManager
+<div class="d-flex flex-row justify-content-between p-3 border-bottom" id="mainHeaderContainer">
+        <div class="d-flex flex-row align-items-center">
+          <div id="logoContainer">
+            <a class="text-decoration-none" id="logoHeader" href="/">
+                <h1>Quizzler</h1>
+            </a>
+          </div>
+            <div class="d-flex" id="navBarItems">
+                <div class="dropdown ms-2" id="navTestType">
+                    <div class="navButton" href="#" id="dropdownTestType" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose Your Test Here
+                    </div>
+                    <div class="dropdown-menu text-center" aria-labelledby="dropdownTestType">
+                        <a class="dropdown-item" href="#">Frontend</a>
+                        <a class="dropdown-item" href="#">Backend</a>
+                        <a class="dropdown-item" href="#">QA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="d-flex flex-row align-items-center" id="accountContainer">
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "navButton" })
+            @Html.ActionLink("SignUp", "Register", "Account", null, new { @class = "navButton ms-2" })
+        }
+        else
+        {
+            <div class="dropdown" id="navAccount">
+                <div class="navButton" href="#" id="dropdownAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </div>
+                <div class="dropdown-menu text-center" aria-labelledby="dropdownAccount">
+                    @Html.ActionLink("Portfolio", "Portfolio", "Account", null, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Settings", "Settings", "Account", null, new { @class = "dropdown-item" })
+                    @Html.ActionLink("SignOut", "LogOut", "Account", null, new { @class = "dropdown-item" })
+                </div>
+            </div>
+            <div class="ms-3" id="navAccountName">
+                <div class="btn btn-outline-dark disabled">User: @User.Identity.Name</div> 
+            </div>
+        }
+    </div>
+</div>

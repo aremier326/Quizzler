@@ -1,0 +1,22 @@
+﻿@using Quizzler.Mvc.PL.Models
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model UserInputModel
+
+<div class="form-group">
+    <label asp-for="Email" class="col-form-label"></label>
+    <div >
+        <input asp-for="Email" class="form-control"/>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Password" class="col-form-label"></label>
+    <div >
+        <input asp-for="Password" class="form-control" />
+    </div>
+</div>
+<div class="row">
+    <div class="d-grid gap-2">
+        <input class="btn btn-success" type="submit" value="Apply" style="margin-top:6px;"/>
+    </div>
+    @Html.ValidationSummary()
+</div>

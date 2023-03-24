@@ -1,0 +1,35 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.navButton {
+    text-decoration: none;
+    color: black;
+}
+.navButton:hover {
+    color: greenyellow;
+}
+.dropdown:hover .navButton {
+    color: greenyellow;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+#logoHeader {
+    color:black 
+}
+#mainFlex {
+    min-height: 85vh;
+}

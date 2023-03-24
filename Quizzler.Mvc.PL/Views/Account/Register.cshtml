@@ -1,0 +1,8 @@
+﻿@model UserInputModel
+
+<div class="d-flex flex-column align-content-center justify-content-center" id="registerMainContainer">
+    <h1 class="align-self-center">SignUp</h1>
+    <form asp-action="Register" method="post" class="formhorizontal">
+        @Html.EditorForModel()
+    </form>
+</div>
