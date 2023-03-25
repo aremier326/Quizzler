@@ -15,6 +15,7 @@ namespace Quizzler.Mvc.PL.Controllers
         [Route("/Frontend")]
         public IActionResult Frontend()
         {
+
             return View();
         }
 
@@ -27,6 +28,16 @@ namespace Quizzler.Mvc.PL.Controllers
         [Route("/QA")]
         public IActionResult QA()
         {
+            return View();
+        }
+
+        [Route("/Quiz")]
+        public IActionResult Quiz()
+        {
+            if (TempData["questions"] != null)
+            {
+                return View();
+            }
             return View();
         }
     }

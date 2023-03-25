@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Quizzler.Bll.Interfaces.Interfaces;
+using Quizzler.Bll.Services;
 using Quizzler.Dal.Data.DbContextData;
 using Quizzler.Dal.Interfaces.Entities.Identity;
 
@@ -48,6 +50,11 @@ builder.Services.AddIdentity<User, Role>(options =>
         #endregion
     })
     .AddEntityFrameworkStores<MainDbContext>();
+
+builder.Services.AddTransient<ITestService, TestService>();
+builder.Services.AddTransient<IActiveTestService, ActiveTestService>();
+builder.Services.AddTransient<IQuizService, QuizService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 #endregion
 

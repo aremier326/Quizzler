@@ -1,0 +1,36 @@
+﻿@model Quizzler.Dal.Interfaces.Entities.Test
+@{
+}
+
+<h2>@Model.Question</h2>
+
+@using (Html.BeginForm("CheckAnswer", "Main", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <ul>
+       <li>
+           <label>
+                <input type="radio" name="SelectedOption" value="@Model.Answer1" />
+                @Model.Answer1
+           </label>
+       </li><li>
+           <label>
+                <input type="radio" name="SelectedOption" value="@Model.Answer2" />
+                @Model.Answer2
+           </label>
+       </li><li>
+           <label>
+                <input type="radio" name="SelectedOption" value="@Model.Answer3" />
+                @Model.Answer3
+           </label>
+       </li><li>
+           <label>
+                <input type="radio" name="SelectedOption" value="@Model.Answer4" />
+                @Model.Answer4
+           </label>
+       </li>
+    </ul>
+
+    <button type="submit">Next question</button>
+}
