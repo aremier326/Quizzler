@@ -1,25 +1,28 @@
 ﻿@using Quizzler.Dal.Interfaces.Entities.Identity
 @inject SignInManager<User> SignInManager
 <div class="d-flex flex-row justify-content-between p-3 border-bottom" id="mainHeaderContainer">
-        <div class="d-flex flex-row align-items-center">
-          <div id="logoContainer">
+    <div class="d-flex flex-row align-items-center">
+        <div id="logoContainer">
             <a class="text-decoration-none" id="logoHeader" href="/">
                 <h1>Quizzler</h1>
             </a>
-          </div>
+        </div>
+        @if (SignInManager.IsSignedIn(User))
+        {
             <div class="d-flex" id="navBarItems">
                 <div class="dropdown ms-2" id="navTestType">
                     <div class="navButton" href="#" id="dropdownTestType" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Choose Your Test Here
                     </div>
                     <div class="dropdown-menu text-center" aria-labelledby="dropdownTestType">
-                        <a class="dropdown-item" href="#">Frontend</a>
-                        <a class="dropdown-item" href="#">Backend</a>
-                        <a class="dropdown-item" href="#">QA</a>
+                        @Html.ActionLink("Frontend", "Frontend", "Main", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Backend", "Backend", "Main", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("QA", "QA", "Main", null, new { @class = "dropdown-item" })
                     </div>
                 </div>
             </div>
-        </div>
+        }
+    </div>
     <div class="d-flex flex-row align-items-center" id="accountContainer">
         @if (!SignInManager.IsSignedIn(User))
         {
