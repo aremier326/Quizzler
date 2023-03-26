@@ -2,9 +2,9 @@
 @{
 }
 
-<h2>@Model.Question</h2>
+<h2>@Model.Question @Model.Id</h2>
 
-@using (Html.BeginForm("CheckAnswer", "Main", FormMethod.Post))
+@using (Html.BeginForm("Quiz", "Main", new {testId = @Model.Id}, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -29,8 +29,7 @@
                 <input type="radio" name="SelectedOption" value="@Model.Answer4" />
                 @Model.Answer4
            </label>
-       </li>
     </ul>
 
-    <button type="submit">Next question</button>
+    <button type="submit">Next</button>
 }

@@ -1,0 +1,14 @@
+﻿@{
+    var errors = ViewBag.Errors;
+    @if (errors != null)
+    {
+        @foreach(var item in errors)
+        {
+            <h1 class="text-danger">@item</h1>
+        }
+    }
+    else
+    {
+        <h1 class="text-danger">Error!</h1>
+    }
+}

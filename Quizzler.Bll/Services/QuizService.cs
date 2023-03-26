@@ -20,10 +20,11 @@ namespace Quizzler.Bll.Services
             _tests = _context.Set<Test>();
         }
 
-        public async ValueTask CreateAsync(Quiz quiz)
+        public async ValueTask<Quiz> CreateAsync(Quiz quiz)
         {
-            await _quizzes.AddAsync(quiz);
+            var value = await _quizzes.AddAsync(quiz);
             await _context.SaveChangesAsync();
+            return value.Entity;
         }
 
         public async ValueTask UpdateAsync(Quiz quiz)
@@ -39,27 +40,23 @@ namespace Quizzler.Bll.Services
         }
 
         //Method for getting questions for specific category.
-        public async ValueTask<IEnumerable<Test>> GetTests(TestTypeEnum category, int number = 5)
+        public async ValueTask<IEnumerable<Test>> GetTestsAsync(int category, int number = 5)
         {
             var random = new Random();
-            return _tests.Where(x => x.TestType == category)
-                .OrderBy(x => random.Next())
-                .Take(number)
+            return _tests.Where(x => x.TestType == category && !(x is ActiveTest))
                 .ToList();
         }
 
         //This method can be used after ActiveTests are assigned to Quiz object
-        public async ValueTask<int> GetResult(Quiz quiz)
+        public async ValueTask<double> GetResultAsync(Quiz quiz)
         {
-            int result = 0;
-            foreach(var test in quiz.ActiveTests)
-            {
-                if (test.Result == true)
-                    result++;
-            }
-            return result;
+            quiz.Result = quiz.ActiveTests.Count(x => x.Result) / (double)quiz.ActiveTests.Count() * 100;
+            return quiz.Result;
         }
 
-        
+        public async ValueTask<Quiz> GetAsync(int id)
+        {
+            return await _quizzes.FindAsync(id);
+        }
     }
 }

@@ -10,15 +10,17 @@ namespace Quizzler.Bll.Interfaces.Interfaces
 {
     public interface IQuizService
     {
-        ValueTask CreateAsync(Quiz quiz);
+        ValueTask<Quiz> GetAsync(int id);
+
+        ValueTask<Quiz> CreateAsync(Quiz quiz);
 
         ValueTask UpdateAsync(Quiz quiz);
 
         ValueTask DeleteAsync(Quiz quiz);
 
-        ValueTask<IEnumerable<Test>> GetTests(TestTypeEnum category, int number = 5);
+        ValueTask<IEnumerable<Test>> GetTestsAsync(int category, int number = 5);
 
-        //ValueTask<int> GetResult(Quiz quiz);
+        ValueTask<double> GetResultAsync(Quiz quiz);
 
     }
 }

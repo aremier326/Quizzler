@@ -1,0 +1,32 @@
+﻿@model Quizzler.Dal.Interfaces.Entities.Quiz
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Model.Description</h2>
+            <p><strong>Quiz Type:</strong> @Model.QuizType</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Test Description</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var test in @Model.ActiveTests)
+                    {
+                        <tr>
+                            <td>@test.Question</td>
+                            <td>@test.Result</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <p><strong>Your final result is:</strong> @Model.Result %</p>
+        </div>
+    </div>
+</div>

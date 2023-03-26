@@ -1,5 +1,4 @@
 ﻿using Quizzler.Dal.Interfaces.Entities.Base;
-using Quizzler.Dal.Interfaces.Enums;
 
 namespace Quizzler.Dal.Interfaces.Entities
 {
@@ -7,12 +6,17 @@ namespace Quizzler.Dal.Interfaces.Entities
     {
         public Quiz() { }
 
+        public Quiz(int type)
+        {
+            QuizType = type;
+        }
+
         public string Description { get; set; } = "Just some test";
 
         public IEnumerable<ActiveTest> ActiveTests { get; set; } = new List<ActiveTest>();
 
-        public decimal Result { get; set; }
+        public double Result { get; set; }
 
-        public TestTypeEnum QuizType { get; set; }
+        public int QuizType { get; set; }
     }
 }

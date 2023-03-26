@@ -2,13 +2,16 @@
 
 @{
 }
-<div class="d-flex flex-column">
-    <div class="display-5 d-flex flex-row">
-        This is a test for the backend developers. It includes some basic stuff about backend development and a bit more.
+<div class="d-flex flex-column justify-content-center">
+    <div>
+        <div class="display-5 d-flex">
+            This is a test for the backend developers. It includes some basic stuff about backend development and a bit more.
+        </div>
     </div>
-    <partial name="Partials/_userAgreement" />
-</div>
-
-<div id="startButtonContainer">
-    <a id="startButton" class="btn btn-outline-secondary" asp-controller="Main" asp-action="StartQuiz" asp-route-symbol="@TestTypeEnum.Backend">Start</a>
+    <br/>
+    <br/>
+    <br/>
+    <div id="startButtonContainer" class="d-flex p-1 justify-content-center">
+        <a id="startButton" class="btn btn-primary btn-lg" asp-controller="Main" asp-action="Quiz">Start</a>
+    </div>
 </div>

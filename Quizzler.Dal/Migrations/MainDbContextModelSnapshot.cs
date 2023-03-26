@@ -238,8 +238,8 @@ namespace Quizzler.Dal.Migrations
                     b.Property<int>("QuizType")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Result")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Result")
+                        .HasColumnType("float");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -279,6 +279,10 @@ namespace Quizzler.Dal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Question")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -289,6 +293,8 @@ namespace Quizzler.Dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tests", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Test");
                 });
 
             modelBuilder.Entity("Quizzler.Dal.Interfaces.Entities.ActiveTest", b =>
@@ -303,7 +309,7 @@ namespace Quizzler.Dal.Migrations
 
                     b.HasIndex("QuizId");
 
-                    b.ToTable("ActiveTests", (string)null);
+                    b.HasDiscriminator().HasValue("ActiveTest");
                 });
 
             modelBuilder.Entity("Quizzler.Dal.Interfaces.Entities.Identity.RoleClaim", b =>
@@ -366,12 +372,6 @@ namespace Quizzler.Dal.Migrations
 
             modelBuilder.Entity("Quizzler.Dal.Interfaces.Entities.ActiveTest", b =>
                 {
-                    b.HasOne("Quizzler.Dal.Interfaces.Entities.Test", null)
-                        .WithOne()
-                        .HasForeignKey("Quizzler.Dal.Interfaces.Entities.ActiveTest", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
                     b.HasOne("Quizzler.Dal.Interfaces.Entities.Quiz", null)
                         .WithMany("ActiveTests")
                         .HasForeignKey("QuizId");

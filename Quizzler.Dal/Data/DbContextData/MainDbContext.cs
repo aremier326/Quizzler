@@ -33,9 +33,6 @@ namespace Quizzler.Dal.Data.DbContextData
             modelBuilder.Entity<Test>()
                 .ToTable("Tests");
 
-            modelBuilder.Entity<ActiveTest>()
-                .ToTable("ActiveTests");
-
             modelBuilder.Entity<Quiz>()
                 .HasMany(t => t.ActiveTests);
 

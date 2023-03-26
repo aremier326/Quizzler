@@ -16,29 +16,38 @@ namespace Quizzler.Bll.Services
             _tests = _context.Set<Test>();
         }
 
-        
 
-        //public async ValueTask<ActiveTest> CheckTest(Test test, string selectedOption)
-        //{
-        //    if (test == null) throw new ArgumentNullException(nameof(test));
 
-        //    ActiveTest activeTest = (ActiveTest)test;
-            
-        //    if (activeTest.CorrectAnswer == selectedOption)
-        //    {
-        //        activeTest.Result = true;
-        //    }
-        //    return activeTest;
-        //}
-
-        public async ValueTask<ActiveTest> CheckTest(int testId)
+        public async ValueTask<ActiveTest> CheckTest(Test test, string selectedOption)
         {
-            return new ActiveTest();
+            if (test == null) throw new ArgumentNullException(nameof(test));
+
+            var activeTest = ToActiveTest(test);
+
+            if (activeTest.CorrectAnswer == selectedOption)
+            {
+                activeTest.Result = true;
+            }
+            return activeTest;
         }
 
         public async ValueTask<Test> Get(int id)
         {
             return await _tests.FindAsync(id);
+        }
+
+        public ActiveTest ToActiveTest(Test test)
+        {
+            return new ActiveTest
+            {
+                Answer1 = test.Answer1,
+                Answer2 = test.Answer2,
+                Answer3 = test.Answer3,
+                Answer4 = test.Answer4,
+                TestType = test.TestType,
+                CorrectAnswer = test.CorrectAnswer,
+                Question = test.Question
+            };
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Quizzler.Bll.Interfaces.Interfaces
     {
         ValueTask<Test> Get(int id);
 
-        ValueTask<ActiveTest> CheckTest(int testId);
+        ValueTask<ActiveTest> CheckTest(Test test, string selectedOption);
+
+        ActiveTest ToActiveTest(Test test);
     }
 }

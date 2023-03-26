@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Quizzler.Bll.Interfaces.Entities;
 using Quizzler.Bll.Interfaces.Entities.BllModels;
 using Quizzler.Bll.Interfaces.Interfaces;
+using Quizzler.Dal.Data.DbContextData;
+using Quizzler.Dal.Interfaces.Entities;
 using Quizzler.Dal.Interfaces.Entities.Identity;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Quizzler.Bll.Services
 {
@@ -10,11 +14,16 @@ namespace Quizzler.Bll.Services
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly MainDbContext _context;
+        private readonly IQuizService _quizService;
 
-        public UserService(SignInManager<User> signInManager, UserManager<User> userManager)
+        public UserService(SignInManager<User> signInManager, UserManager<User> userManager
+                            , IQuizService quizService, MainDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _quizService = quizService;
+            _context = context;
         }
 
         public async ValueTask<ErrorModel> CreateAsync(BllUserModel userModel)
@@ -94,6 +103,46 @@ namespace Quizzler.Bll.Services
         public Task SignOutAsync()
         {
             return _signInManager.SignOutAsync();
+        }
+
+
+        public async ValueTask<IEnumerable<Quiz>> GetQuizzesAsync(string userId)
+        {
+            var user = await _context.Users
+                .Include(x =>  x.Quizzes)
+                .ThenInclude(x => x.ActiveTests)
+                .SingleOrDefaultAsync(x => x.Id == int.Parse(userId));
+
+            if (user == null || user.Quizzes == null)
+            {
+                return null;
+            }
+            return user.Quizzes;
+        }
+
+        public async ValueTask<ErrorModel> AddQuizAsync(string userId, Quiz quiz)
+        {
+            var user = await _context.Users
+                .Include(x => x.Quizzes)
+                .ThenInclude(x => x.ActiveTests)
+                .SingleOrDefaultAsync(x => x.Id == int.Parse(userId));
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            user.Quizzes = user.Quizzes.Append(await _quizService.CreateAsync(quiz)).ToList();
+
+            await _userManager.UpdateAsync(user);
+
+            return ErrorModel.CreateSuccess();
+        }
+
+        public async ValueTask<Quiz> GetLastQuizAsync(string userId)
+        {
+            return GetQuizzesAsync(userId).Result.Last();
+
         }
     }
 }

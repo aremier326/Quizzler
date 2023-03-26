@@ -17,6 +17,6 @@ namespace Quizzler.Dal.Interfaces.Entities
 
         public string CorrectAnswer { get; set; }
 
-        public TestTypeEnum TestType { get; set; }
+        public int TestType { get; set; }
     }
 }
