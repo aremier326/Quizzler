@@ -2,34 +2,41 @@
 @{
 }
 
-<h2>@Model.Question @Model.Id</h2>
+
 
 @using (Html.BeginForm("Quiz", "Main", new {testId = @Model.Id}, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <ul>
-       <li>
-           <label>
-                <input type="radio" name="SelectedOption" value="@Model.Answer1" />
-                @Model.Answer1
-           </label>
-       </li><li>
-           <label>
-                <input type="radio" name="SelectedOption" value="@Model.Answer2" />
-                @Model.Answer2
-           </label>
-       </li><li>
-           <label>
-                <input type="radio" name="SelectedOption" value="@Model.Answer3" />
-                @Model.Answer3
-           </label>
-       </li><li>
-           <label>
-                <input type="radio" name="SelectedOption" value="@Model.Answer4" />
-                @Model.Answer4
-           </label>
-    </ul>
-
-    <button type="submit">Next</button>
+    <div class="container">
+        <h2 class="mb-3">@Model.Question</h2>
+        <ul>
+           <li>
+                <label class="form-check-label lead">
+                    <input class="form-check-input" type="radio" name="SelectedOption" value="@Model.Answer1" />
+                    @Model.Answer1
+               </label>
+           </li>
+           <li>
+                <label class="form-check-label lead">
+                    <input class="form-check-input" type="radio" name="SelectedOption" value="@Model.Answer2" />
+                    @Model.Answer2
+               </label>
+           </li>
+           <li>
+                <label class="form-check-label lead">
+                    <input class="form-check-input" type="radio" name="SelectedOption" value="@Model.Answer3" />
+                    @Model.Answer3
+               </label>
+           </li>
+           <li>
+                <label class="form-check-label lead">
+                    <input class="form-check-input" type="radio" name="SelectedOption" value="@Model.Answer4" />
+                    @Model.Answer4
+               </label>
+        </ul>
+        <div class="d-flex justify-content-end m-3">
+            <button class="btn btn-primary" type="submit">Next</button>
+        </div>
+    </div>
 }

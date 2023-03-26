@@ -41,7 +41,7 @@ namespace Quizzler.Mvc.PL.Controllers
         [Route("/Frontend")]
         public async ValueTask<IActionResult> Frontend()
         {
-            QuizPreparations(0, 4);
+            QuizPreparations(0, 5);
 
             return View();
         }
@@ -49,7 +49,7 @@ namespace Quizzler.Mvc.PL.Controllers
         [Route("/Backend")]
         public async ValueTask<IActionResult> BackEnd()
         {
-            QuizPreparations(1, 2);
+            QuizPreparations(1, 5);
 
             return View();
         }
@@ -57,7 +57,7 @@ namespace Quizzler.Mvc.PL.Controllers
         [Route("/QA")]
         public async ValueTask<IActionResult> QA()
         {
-            QuizPreparations(2, 2);
+            QuizPreparations(2, 5);
 
             return View();
         }

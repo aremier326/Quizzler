@@ -6,8 +6,6 @@
     <div class="row">
         <div class="col-md-12">
             <h2>@Model.Description</h2>
-            <p><strong>Quiz Type:</strong> @Model.QuizType</p>
-
             <table class="table">
                 <thead>
                     <tr>
@@ -20,7 +18,7 @@
                     {
                         <tr>
                             <td>@test.Question</td>
-                            <td>@test.Result</td>
+                            <td>@(test.Result ? "Correct" : "Not Correct")</td>
                         </tr>
                     }
                 </tbody>

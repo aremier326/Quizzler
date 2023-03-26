@@ -34,3 +34,12 @@ html {
     min-height: 85vh;
 }
 
+.container {
+    width: 600px;
+}
+
+.container ul {
+    list-style: none;
+    overflow: auto;
+}
+
