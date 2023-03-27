@@ -5,6 +5,7 @@ using Quizzler.Bll.Interfaces.Entities.BllModels;
 using Quizzler.Bll.Interfaces.Interfaces;
 using Quizzler.Dal.Interfaces.Entities.Identity;
 using Quizzler.Mvc.PL.Models;
+using System.Security.Claims;
 
 namespace Quizzler.Mvc.PL.Controllers;
 
@@ -12,10 +13,12 @@ namespace Quizzler.Mvc.PL.Controllers;
 public class AccountController : Controller
 {
     private readonly IUserService _userService;
+    private readonly IQuizService _quizService;
 
-    public AccountController(IUserService userService)
+    public AccountController(IUserService userService, IQuizService quizService)
     {
         _userService = userService;
+        _quizService = quizService;
     }
 
     [HttpGet]
@@ -91,6 +94,19 @@ public class AccountController : Controller
     {
         await _userService.SignOutAsync();
         return RedirectToAction("Index", "Main");
+    }
+
+    public async ValueTask<IActionResult> CompletedQuizzes()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var quizzes = await _userService.GetQuizzesAsync(userId);
+        return View(quizzes);
+    }
+
+    public async ValueTask<IActionResult> QuizDetails(int id)
+    {
+        var quiz = await _quizService.GetAsync(id);
+        return View(quiz);
     }
 
     private void AddModelStateErrors(ErrorModel errorModel)

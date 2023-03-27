@@ -56,7 +56,7 @@ namespace Quizzler.Bll.Services
 
         public async ValueTask<Quiz> GetAsync(int id)
         {
-            return await _quizzes.FindAsync(id);
+            return await _quizzes.Include(x => x.ActiveTests).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

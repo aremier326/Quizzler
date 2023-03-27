@@ -1,0 +1,39 @@
+﻿@model Quizzler.Dal.Interfaces.Entities.Quiz
+@{
+}
+
+<div class="d-flex flex-column">
+    <h2 class="m-5">Quiz Details</h2>
+    <h4>Result: @Model.Result %</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Answer 1</th>
+                <th>Answer 2</th>
+                <th>Answer 3</th>
+                <th>Answer 4</th>
+                <th>Correct Asnwer</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.ActiveTests)
+            {
+                <tr>
+                    <th>@item.Id</th>
+                    <td>@item.Answer1</td>
+                    <td>@item.Answer2</td>
+                    <td>@item.Answer3</td>
+                    <td>@item.Answer4</td>
+                    <td>@item.CorrectAnswer</td>
+                    <td>@(item.Result ? "Correct" : "Not Correct")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        @Html.ActionLink("Back", "CompletedQuizzes", "Account", new {id = "0"},new {@class="btn btn-primary"})
+    </div>
+</div>

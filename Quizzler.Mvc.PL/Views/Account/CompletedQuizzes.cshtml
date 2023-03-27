@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Quizzler.Dal.Interfaces.Entities.Quiz>
+@{
+}
+<div class="d-flex flex-column">
+    <h2 class="m-5">Completed Quizzes</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <th>@item.Id</th>
+                    <td>@item.QuizType</td>
+                    <td>@item.Result %</td>
+                    <td>
+                        @Html.ActionLink("Details", "QuizDetails", "Account", new {id = @item.Id}, new {@class="btn btn-primary"})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
